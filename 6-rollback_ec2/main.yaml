@@ -1,0 +1,15 @@
+- hosts: local
+  gather_facts: no
+  tasks:
+
+  - name: create redhat ec2 instance
+    amazon.aws.ec2:
+      key_name: "{{ KEY_NAME }}"
+      instance_type: t2.micro
+      image: "{{ SNAP_ID }}"
+      wait: yes
+      count: 1
+      vpc_subnet_id: "{{ VPC_SUB_ID }}"
+      assign_public_ip: yes
+
+

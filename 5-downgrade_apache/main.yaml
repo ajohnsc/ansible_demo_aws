@@ -1,0 +1,8 @@
+- hosts: webserver
+  tasks:
+
+  - name: install apache httpd
+    ansible.builtin.yum:
+      name: httpd-2.4.37-10.module+el8+2764+7127e69e.x86_64
+      state: present
+      allow_downgrade: yes

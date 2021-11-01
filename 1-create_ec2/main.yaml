@@ -1,0 +1,19 @@
+- hosts: local
+  gather_facts: no
+  tasks:
+
+  - name: create redhat ec2 instance
+    amazon.aws.ec2:
+      key_name: "{{ KEY_NAME }}"
+      instance_type: t2.micro
+      image: ami-0d6ba217f554f6137
+      wait: yes
+      count: 1
+      vpc_subnet_id: "{{ VPC_SUB_ID }}"
+      assign_public_ip: yes
+    register: ec2_instance
+
+  - name: snapshot for later
+    amazon.aws.ec2_snapshot:
+      instance_id: "{{ ec2_instance.instances.instance_id}}"
+      device_name: /dev/sda1
